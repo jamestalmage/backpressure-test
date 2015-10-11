@@ -1,25 +1,24 @@
 'use strict';
 var assert = require('assert');
-var proxyquire = require('proxyquire');
-var sinon = require('sinon');
-describe('content-stream', function () {
-	var contentStream;
+var _contentStream = require('../lib/content-stream.js');
 
-	beforeEach(() => contentStream = proxyquire('../lib/content-stream.js', {
-		'readable-stream': {
-			Readable: sinon.spy(options => {
-				options.pushed = [];
-				options.push = chunk => options.pushed.push(chunk && chunk.toString());
-				return options;
-			})
-		}
-	}));
+describe('content-stream', function () {
+	var pushed;
+
+	beforeEach(() => pushed = []);
+
+	function contentStream(opts) {
+		var s = _contentStream(opts);
+		s.push = chunk => pushed.push(chunk && chunk.toString());
+		s.read = s._read;
+		return s;
+	}
 
 	it('number arg', () => {
 		var cs = contentStream(7);
 		cs.read(3);
 		cs.read(10);
-		assert.deepEqual(['abc', 'defg', null], cs.pushed);
+		assert.deepEqual(['abc', 'defg', null], pushed);
 	});
 
 	it('string arg', () => {
@@ -28,7 +27,7 @@ describe('content-stream', function () {
 		cs.read(4);
 		cs.read(2);
 		cs.read(10);
-		assert.deepEqual(['Hel', 'lo W', 'or', 'ld!', null], cs.pushed);
+		assert.deepEqual(['Hel', 'lo W', 'or', 'ld!', null], pushed);
 	});
 
 	it('Buffer arg', () => {
@@ -37,6 +36,6 @@ describe('content-stream', function () {
 		cs.read(4);
 		cs.read(2);
 		cs.read(10);
-		assert.deepEqual(['Hel', 'lo W', 'or', 'ld!', null], cs.pushed);
+		assert.deepEqual(['Hel', 'lo W', 'or', 'ld!', null], pushed);
 	});
 });
