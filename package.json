@@ -1,0 +1,45 @@
+{
+  "name": "backpressure-test",
+  "version": "0.0.0",
+  "description": "My terrific module",
+  "license": "MIT",
+  "repository": "jamestalmage/backpressure-test",
+  "author": {
+    "name": "James Talmage",
+    "email": "james@talmage.io",
+    "url": "github.com/jamestalmage"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "xo && mocha --compilers js:babel/register",
+    "debug": "mocha --compilers js:babel/register",
+    "watch": "mocha --watch --compilers js:babel/register"
+  },
+  "files": [
+    "index.js",
+    "lib/**"
+  ],
+  "keywords": [
+    ""
+  ],
+  "dependencies": {
+    "is-stream": "^1.0.1",
+    "readable-stream": "^2.0.2"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "co-mocha": "^1.1.2",
+    "mocha": "^2.2.5",
+    "proxyquire": "^1.7.3",
+    "sinon": "^1.17.1",
+    "xo": "^0.9.0"
+  },
+  "xo": {
+    "envs": [
+      "node",
+      "mocha"
+    ]
+  }
+}
