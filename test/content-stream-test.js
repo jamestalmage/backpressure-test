@@ -38,4 +38,9 @@ describe('content-stream', function () {
 		cs.read(10);
 		assert.deepEqual(['Hel', 'lo W', 'or', 'ld!', null], pushed);
 	});
+
+	it('throws with bad content', () => {
+		assert.throws(() => contentStream({}));
+		assert.throws(() => contentStream(true));
+	});
 });

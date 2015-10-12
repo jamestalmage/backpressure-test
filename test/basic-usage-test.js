@@ -34,6 +34,7 @@ describe('basic-usage', () => {
 		yield duplex.waiting();
 		yield duplex.waiting();
 
-		assert.deepEqual(content.chunks, ['Hello', ' worl']);
+		assert.deepEqual(content.chunks(), ['Hello', ' worl']);
+		content.chunks('Hello', ' worl');
 	});
 });

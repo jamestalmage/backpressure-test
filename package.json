@@ -13,9 +13,9 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "xo && mocha --compilers js:babel/register",
-    "debug": "mocha --compilers js:babel/register",
-    "watch": "mocha --watch --compilers js:babel/register"
+    "test": "xo && mocha $(node-version --lt-4.0.0 --compilers js:babel/register)",
+    "debug": "mocha $(node-version --lt-4.0.0 --compilers js:babel/register)",
+    "watch": "mocha --watch $(node-version --lt-4.0.0 --compilers js:babel/register)"
   },
   "files": [
     "index.js",
@@ -32,6 +32,7 @@
     "babel": "^5.8.23",
     "co-mocha": "^1.1.2",
     "mocha": "^2.2.5",
+    "node-version-cli": "^1.1.4",
     "proxyquire": "^1.7.3",
     "sinon": "^1.17.1",
     "xo": "^0.9.0"

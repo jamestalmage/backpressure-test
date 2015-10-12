@@ -27,7 +27,7 @@ describe('stream-completion-assertions', () => {
 		assert(spy.calledWith('finish'), 'called with finish');
 	});
 
-	it('end throws before end, not after', function () {
+	it('end throws before end, not after', () => {
 		var readable = spyReadable(spy);
 		completions(readable);
 		assert.throws(() => readable.ended(), /ended \(it has not\)/);
@@ -35,7 +35,7 @@ describe('stream-completion-assertions', () => {
 		readable.ended();
 	});
 
-	it('finish throws before finish, not after', function () {
+	it('finish throws before finish, not after', () => {
 		var writable = spyWritable(spy);
 		completions(writable);
 		assert.throws(() => writable.finished(), /finished \(it has not\)/);
@@ -43,7 +43,7 @@ describe('stream-completion-assertions', () => {
 		writable.finished();
 	});
 
-	it('done/completed throws before, not after', function () {
+	it('done/completed throws before, not after', () => {
 		var duplex = spyDuplex(spy);
 		completions(duplex);
 		assert.throws(() => duplex.done(), /done \(finished:false \|\| ended:false\)/);
@@ -56,7 +56,16 @@ describe('stream-completion-assertions', () => {
 		duplex.complete();
 	});
 
-	it('helpful error messages if using wrong method for stream type', function () {
+	it('ended throws "finished but not ended"', () => {
+		var duplex = spyDuplex(spy);
+		completions(duplex);
+		finish(spy);
+		assert.throws(() => duplex.ended(), /finished but not ended/);
+		end(spy);
+		duplex.complete();
+	});
+
+	it('helpful error messages if using wrong method for stream type', () => {
 		var readable = spyReadable(sinon.spy());
 		completions(readable);
 		var writable = spyWritable(sinon.spy());
@@ -70,7 +79,7 @@ describe('stream-completion-assertions', () => {
 		assert.throws(() => writable.ended(), /writable.*use finished/);
 	});
 
-	it('completions properties', function () {
+	it('completions properties', () => {
 		var duplex = spyDuplex(spy);
 		var c = completions(duplex);
 		assert(!c.isEnded, 'not ended');
