@@ -1,3 +1,3 @@
 'use strict';
 var assert = require('assert');
-require('sinon').assert.expose(assert, {prefix: 'spy'});
+require('sinon').assert.expose(assert, {prefix: 'spy', includeFail: false});
